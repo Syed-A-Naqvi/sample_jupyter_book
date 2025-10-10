@@ -29,6 +29,14 @@ Here is a "note" directive:
 Here is a note
 ```
 
+```{tip}
+Here is a tip
+
+
+```{warning}
+Here is a warning
+```
+
 It will be rendered in a special box when you build your book.
 
 Here is an inline directive to refer to a document: {doc}`markdown-notebooks`.
@@ -48,6 +56,16 @@ then the bibliography is inserted with:
 
 ```{bibliography}
 ```
+
+i dont know what this does:
+
+````{margin}
+
+```{note}
+This is a note in a margin.
+```
+
+````
 
 ## Learn more
 

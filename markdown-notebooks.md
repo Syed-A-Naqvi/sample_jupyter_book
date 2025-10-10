@@ -22,7 +22,7 @@ This page shows off a notebook written in MyST Markdown.
 
 With MyST Markdown, you can define code cells with a directive like so:
 
-```{code-cell}
+```{code-cell} python
 print(2 + 2)
 ```
 
@@ -48,6 +48,16 @@ That's all that is needed to get started!
 
 If you have a markdown file and you'd like to quickly add YAML metadata to it, so that Jupyter Book will treat it as a MyST Markdown Notebook, run the following command:
 
-```
+```{bash}
 jupyter-book myst init path/to/markdownfile.md
 ```
+
+Here is some latex markup. Lets see how it renders in MyST:
+
+$$
+\begin{align*}
+    \frac{d}{d\mathbf{a}} L(\mathbf{a}; x) &= \frac{d}{d\mathbf{a}} \left[ \frac{1}{2n}\sum (f^*(x;\mathbf{a}) - f(x))^2 \right] \\ \\
+                      &= \frac{1}{n} \sum (f^*(x;\mathbf{a}) - f(x)) \cdot (\frac{d}{d\mathbf{a}} f^*(x;\mathbf{a})) \\ \\
+                      &= \frac{1}{n} \sum (f^*(x;\mathbf{a}) - f(x)) \cdot \left[ \begin{array}{c} x^3 \\ x^2 \\ x \\ 1 \end{array} \right]
+\end{align*}
+$$
