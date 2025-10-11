@@ -59,13 +59,18 @@ then the bibliography is inserted with:
 
 i dont know what this does:
 
-````{margin}
+`````{margin}
 
-```{note}
+````{note}
 This is a note in a margin.
+
+```{tip}
+and this is a tip in the note
 ```
 
 ````
+
+`````
 
 ## Learn more
 

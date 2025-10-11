@@ -1,14 +1,19 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: My sample book
-author: The Jupyter Book Community
-logo: logo.png
+title: "MY BOOK"
+subtitle: "A simple example of a Jupyter Book"
+author: "Arham Naqvi"
+date: "2025-10-10"
+copyright: "2025"
+# logo: "logo.png"
 
-# Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
-# execute:
-#   execute_notebooks: force
+execute:
+  execute_notebooks: 'cache'
+  exclude_patterns:
+    - "regression.ipynb"
+    # - "regression*"
 
 # Define the name of the latex output file for PDF builds
 latex:
@@ -30,3 +35,5 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
+  # Show a small banner below the header on every page (good place for a subtitle)
+  announcement: "A simple example of a Jupyter Book"

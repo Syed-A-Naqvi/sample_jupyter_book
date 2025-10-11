@@ -48,7 +48,7 @@ That's all that is needed to get started!
 
 If you have a markdown file and you'd like to quickly add YAML metadata to it, so that Jupyter Book will treat it as a MyST Markdown Notebook, run the following command:
 
-```{bash}
+```{code-block} bash
 jupyter-book myst init path/to/markdownfile.md
 ```
 
@@ -61,3 +61,7 @@ $$
                       &= \frac{1}{n} \sum (f^*(x;\mathbf{a}) - f(x)) \cdot \left[ \begin{array}{c} x^3 \\ x^2 \\ x \\ 1 \end{array} \right]
 \end{align*}
 $$
+
+
+(section-label)=
+## Here's my first section
