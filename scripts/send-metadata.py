@@ -6,10 +6,10 @@ This script extracts project metadata from _config.yml and sends it to a portfol
 repository, triggering an update to the portfolio's project gallery.
 
 Usage:
-    python send_metadata.py
+    python send_metadata.py <deployed_url>
 
 Example:
-    python send_metadata.py
+    python send_metadata.py https://your-deployed-url.com
 """
 
 import yaml
@@ -31,13 +31,14 @@ def load_config():
         print(f"Error parsing _config.yml: {e}")
         sys.exit(1)
 
-def extract_metadata(config):
+def extract_metadata(config, deployed_url):
     """Extract project metadata from config."""
+
     # Get basic info
     title = config.get("title", "No Title")
     description = config.get("description", "No Description")
     author = config.get("author", "No Author")
-    logo_path = config.get(f"logo", "")
+    logo_path = f"{deployed_url}/_static/" + config.get("logo", "No Logo")
     
     # Get tags from project_metadata
     project_meta = config.get("project_metadata", {})
@@ -52,6 +53,7 @@ def extract_metadata(config):
         "author": author,
         "tags": tags,
         "url": deployed_url,
+        "logo_path": logo_path,
         "updated": current_date
     }
 
@@ -61,18 +63,18 @@ def send_repository_dispatch(metadata):
     
     This requires:
     - PORTFOLIO_REPO environment variable (format: "owner/repo")
-    - PORTFOLIO_TOKEN environment variable (GitHub Personal Access Token)
+    - PORTFOLIO_PAT environment variable (GitHub Personal Access Token)
     """
     portfolio_repo = os.environ.get("PORTFOLIO_REPO")
-    portfolio_token = os.environ.get("PORTFOLIO_TOKEN")
+    portfolio_pat = os.environ.get("PORTFOLIO_PAT")
     
     if not portfolio_repo:
         print("Warning: PORTFOLIO_REPO environment variable not set")
         print("Skipping portfolio notification")
         return False
     
-    if not portfolio_token:
-        print("Warning: PORTFOLIO_TOKEN environment variable not set")
+    if not portfolio_pat:
+        print("Warning: PORTFOLIO_PAT environment variable not set")
         print("Skipping portfolio notification")
         return False
     
@@ -88,7 +90,7 @@ def send_repository_dispatch(metadata):
     # Prepare request
     headers = {
         "Accept": "application/vnd.github+json",
-        "Authorization": f"Bearer {portfolio_token}",
+        "Authorization": f"Bearer {portfolio_pat}",
         "X-GitHub-Api-Version": "2022-11-28",
         "Content-Type": "application/json"
     }
@@ -138,6 +140,7 @@ def main():
     print("\nProject Metadata:")
     print(f"  Title: {metadata['title']}")
     print(f"  Description: {metadata['description']}")
+    print(f"  Logo Path: {metadata['logo_path']}")
     print(f"  Author: {metadata['author']}")
     print(f"  Tags: {', '.join(metadata['tags']) if metadata['tags'] else 'None'}")
     print(f"  URL: {metadata['url']}")
@@ -146,16 +149,8 @@ def main():
     # Send to portfolio
     print("\nSending to portfolio repository...")
     success = send_repository_dispatch(metadata)
-    
-    if not success:
-        print("\nNote: To enable portfolio integration, set up:")
-        print("  1. PORTFOLIO_REPO secret in GitHub repository settings")
-        print("     Format: 'owner/repo' (e.g., 'username/portfolio')")
-        print("  2. PORTFOLIO_TOKEN secret with a GitHub Personal Access Token")
-        print("     Permissions needed: repo scope")
-        print("\nMetadata extraction completed successfully.")
-    
-    sys.exit(0 if success else 0)  # Don't fail workflow if portfolio update fails
+
+    sys.exit(0 if success else 1)
 
 if __name__ == "__main__":
     main()

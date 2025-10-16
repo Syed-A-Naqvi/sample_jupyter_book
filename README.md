@@ -534,6 +534,8 @@ The template includes custom CSS (`_static/portfolio-sync.css`) with a professio
 - Secondary: Bright Deep Red
 - Background: Deep Charcoal Brown
 
+**IMPORTANT:** Do not change path or name of `_static/portfolio-sync.css`.
+
 ### Available Card Header Colors
 
 Use these classes in MyST directives (e.g., `:class-header: bg-primary`):
@@ -637,12 +639,13 @@ The following data from `_config.yml` is sent to your portfolio:
 
 ```json
 {
-  "title": "Your Project Title",
-  "description": "Brief description",
+  "title": "Your Book Title",
+  "description": "Brief book description/caption/subtitle",
   "author": "Your Name",
   "tags": ["tag1", "tag2", "tag3"],
   "url": "https://your-username.github.io/your-project-name",
-  "date": "2025-10-15"
+  "logo_path": "full URL to logo image file at the hosted github pages site",
+  "date": "current data (YYYY-MM-DD)"
 }
 ```
 
@@ -656,73 +659,6 @@ Your portfolio repository should:
 4. Regenerate the portfolio website
 
 **Note:** The portfolio listener implementation is currently in development. The dispatch mechanism will use GitHub's repository dispatch API to trigger updates.
-
----
-
-## 📝 Content Writing Tips
-
-### Professional Document Style
-
-This template follows a clean, professional document format:
-
-**Layout Principles:**
-- Clean title, subtitle, author, and date at the top
-- Executive summary for comprehensive overview
-- Key findings highlighted with bold labels
-- Structured methodology with numbered sections
-- Clear technology descriptions without excessive decoration
-- Minimal emoji use (avoid in main content)
-
-**MyST Markdown Basics:**
-
-#### Headings
-```markdown
-# H1 Title
-## H2 Section
-### H3 Subsection
-```
-
-#### Lists
-```markdown
-- Bullet point
-- Another point
-
-1. Numbered item
-2. Another item
-```
-
-#### Emphasis
-```markdown
-**Bold text** for key terms
-*Italic text* for emphasis
-```
-
-#### Table of Contents
-```markdown
-\`\`\`{tableofcontents}
-\`\`\`
-```
-
----
-
-## 🏷️ Recommended Tags
-
-Choose 5-8 tags that best describe your project:
-
-### Categories
-- `data-analysis`, `machine-learning`, `deep-learning`, `data-engineering`, `business-intelligence`
-
-### Tools
-- `Python`, `R`, `SQL`, `Tableau`, `PowerBI`, `Spark`
-
-### Libraries
-- `TensorFlow`, `PyTorch`, `Scikit-learn`, `Pandas`, `Plotly`, `Seaborn`
-
-### Techniques
-- `classification`, `regression`, `clustering`, `NLP`, `computer-vision`, `time-series`
-
-### Domains
-- `finance`, `healthcare`, `retail`, `marketing`, `sports`, `social-media`
 
 ---
 
