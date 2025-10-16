@@ -113,9 +113,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r scripts/requirements.txt
       
-      - name: Send metadata to portfolio
-        env:
-          PORTFOLIO_REPO: ${{ vars.PORTFOLIO_REPO }}
-          PORTFOLIO_PAT: ${{ secrets.PORTFOLIO_PAT }}
+      # - name: Send metadata to portfolio
+      #   env:
+      #     PORTFOLIO_REPO: ${{ vars.PORTFOLIO_REPO }}
+      #     PORTFOLIO_PAT: ${{ secrets.PORTFOLIO_PAT }}
+      #   run: |
+      #     python scripts/send_metadata.py ${{ needs.deploy.outputs.page_url }}
+
+      - name: displaying directory contents
         run: |
-          python scripts/send_metadata.py ${{ needs.deploy.outputs.page_url }}
+          ls -la .
+          ls -la scripts
