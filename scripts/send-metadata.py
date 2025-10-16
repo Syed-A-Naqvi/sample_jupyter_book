@@ -38,7 +38,7 @@ def extract_metadata(config, deployed_url):
     title = config.get("title", "No Title")
     description = config.get("description", "No Description")
     author = config.get("author", "No Author")
-    logo_path = f"{deployed_url}/_static/" + config.get("logo", "No Logo")
+    logo_path = f"{deployed_url}_static/" + config.get("logo", "No Logo")
     
     # Get tags from project_metadata
     project_meta = config.get("project_metadata", {})
