@@ -35,8 +35,10 @@ jobs:
         run: |
           # Get current date
           CURRENT_DATE=$(date +"%B %d, %Y")
+          
           # Update the "Last Updated" line in overview.md
-          sed -i "0s/\*Last Updated:.*\*/\*Last Updated: $CURRENT_DATE\*/" overview.md
+          sed -i '0,/\*Last Updated:.*\*/s/\*Last Updated:.*\*/\*Last Updated: '"$CURRENT_DATE"'/' overview.md
+          
           # Display the change
           echo "Updated overview.md with date: $CURRENT_DATE"
 
