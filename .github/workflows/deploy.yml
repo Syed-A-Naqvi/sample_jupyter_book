@@ -88,6 +88,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+    
+    steps:
+      - name: testing deployment url
+        run: echo "Deployed to ${{ steps.deployment.outputs.page_url }}"
 
   # Executes python script to send metadata to portfolio after project deployment
   # notify-portfolio:

@@ -6,10 +6,10 @@ This script extracts project metadata from _config.yml and sends it to a portfol
 repository, triggering an update to the portfolio's project gallery.
 
 Usage:
-    python send_metadata.py <deployed_url>
+    python send_metadata.py
 
 Example:
-    python send_metadata.py https://username.github.io/project-name/
+    python send_metadata.py
 """
 
 import yaml
@@ -31,12 +31,13 @@ def load_config():
         print(f"Error parsing _config.yml: {e}")
         sys.exit(1)
 
-def extract_metadata(config, deployed_url):
+def extract_metadata(config):
     """Extract project metadata from config."""
     # Get basic info
-    title = config.get("title", "Untitled Project")
-    description = config.get("description", "")
-    author = config.get("author", "")
+    title = config.get("title", "No Title")
+    description = config.get("description", "No Description")
+    author = config.get("author", "No Author")
+    logo_path = config.get(f"logo", "")
     
     # Get tags from project_metadata
     project_meta = config.get("project_metadata", {})
