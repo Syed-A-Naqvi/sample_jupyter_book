@@ -1,19 +1,26 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
-
-title: "MY BOOK"
-subtitle: "A simple example of a Jupyter Book"
+title: "Crime Hotspot Mapping Analysis"
+description: "Geospatial analysis of crime incidents for identifying high-risk areas and temporal patterns."
 author: "Arham Naqvi"
-date: "2025-10-10"
 copyright: "2025"
-# logo: "logo.png"
+logo: "logo.png"
+
+# Custom Metadata
+project_metadata:
+  tags: ["Geospatial Analysis", "Crime Mapping", "Data Science", "Python", "Jupyter Book"]
+
+# Sphinx exclude patterns
+exclude_patterns: 
+  - "scripts/*"           # Automation scripts not for display
+  - "raw_data/*"          # Unprocessed data files
+  - ".github/*"           # GitHub workflows
+  - "venv/*"              # Virtual environment
 
 # See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: 'cache'
-  exclude_patterns:
-    - "regression.ipynb"
-    # - "regression*"
+  exclude_patterns: [""]
 
 # Define the name of the latex output file for PDF builds
 latex:
@@ -35,4 +42,3 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
-  # Show a small banner below the header on every page (good place for a subtitle)

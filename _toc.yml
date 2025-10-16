@@ -2,10 +2,12 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: intro
+root: README
 chapters:
-- file: markdown
-- file: markdown-notebooks
-  sections:
-    - file: testbook
-    - file: regression
+- file: overview
+# - file: file2
+# - file: file3
+# - section: file4
+#   chapters:
+#   - file: file4a
+#   - file: file4b
