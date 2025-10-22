@@ -558,6 +558,7 @@ All relevant `js` is in the file `portfolio-sync.js`.
 
 ---
 
+(hot-reload-workflow)=
 ## 🔧 Building Locally with Hot-Reload Functionality
 
 ### Prerequisites
@@ -599,6 +600,19 @@ sphinx-autobuild . _build/html --open-browser
 
 ## 🚢 Deployment Workflow
 
+### Setup GitHub Pages
+
+1. Go to your repository **Settings** → **Pages**
+2. Under "Source", select **GitHub Actions**
+3. The workflow will automatically deploy on the next push
+
+### Configure Actions Environment Variables
+
+1. Go to repository **Settings** → **Secrets and variables** → **Actions**
+2. Create a **secret** named **PORTFOLIO_PAT** set to the **portfolio personal access token** for portfolio workflow dispatch authentication
+3. Create a **variable** named **PORTFOLIO_REPO** set to the book repository name in the format {*username*}/{*book_repo*} 
+4. These environment variables are required for portfolio auto-updating functionality
+
 ### Automated GitHub Pages Deployment
 
 The repository includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that automatically:
@@ -606,7 +620,7 @@ The repository includes a GitHub Actions workflow (`.github/workflows/deploy.yml
 1. **Updates Date** - Updates the "Last Updated" date in `overview.md` to the current date
 2. **Builds HTML** - Runs `jupyter-book build .` to generate static HTML
 3. **Deploys to GitHub Pages** - Publishes the book to `https://your-username.github.io/your-project-name`
-4. **Notifies Portfolio** - Sends project metadata to your portfolio repository via repository dispatch
+4. **Notifies Portfolio** - Sends updated book metadata to the portfolio repository
 
 ### Workflow Trigger
 
@@ -619,11 +633,6 @@ on:
       - main
 ```
 
-### Setup GitHub Pages
-
-1. Go to your repository **Settings** → **Pages**
-2. Under "Source", select **GitHub Actions**
-3. The workflow will automatically deploy on the next push
 
 ---
 
@@ -631,11 +640,11 @@ on:
 
 ### How It Works
 
-When your Jupyter Book deploys, the `send_metadata.py` script automatically sends project information to your portfolio website repository using GitHub's **repository dispatch** feature.
+After the book has been deployed to github pages, the runner executes the `send-metadata.py` script. This script sends project metadata via a POST request to the portfolio's dispatches API using event_type: `"project-updated"`. This is known as GitHub's **repository dispatch** feature.
 
 ### Metadata Sent
 
-The following data from `_config.yml` is sent to your portfolio:
+The following data is built from the `_config.yml` and is sent to your portfolio:
 
 ```json
 {
@@ -649,16 +658,14 @@ The following data from `_config.yml` is sent to your portfolio:
 }
 ```
 
-### Portfolio Setup (To Be Implemented)
+### Portfolio Workflow
 
-Your portfolio repository should:
+The portfolio repository:
 
-1. Listen for the `project-updated` repository dispatch event
-2. Extract the metadata payload
-3. Update the portfolio project gallery
-4. Regenerate the portfolio website
-
-**Note:** The portfolio listener implementation is currently in development. The dispatch mechanism will use GitHub's repository dispatch API to trigger updates.
+1. Listens for the `project-updated` repository dispatch event
+2. Extracts the metadata payload
+3. Uses metadata to update the portfolio project gallery
+4. Deploy's to github pages
 
 ---
 
@@ -685,13 +692,12 @@ pip install jupyter-book
 
 1. Check Actions tab for workflow errors
 2. Ensure GitHub Pages is configured to use **GitHub Actions**
-3. Check repository permissions: Settings → Actions → General → Workflow permissions
 
 **Issue:** Styling not applied
 
-- Ensure `_static/portfolio-sync.css` is referenced in `_config.yml`
+- Ensure `_static/portfolio-sync.css` is present and named correctly
 - Clear browser cache
-- Rebuild with `jupyter-book clean . && jupyter-book build .`
+- Rebuild locally using the hot-reload workflow ({ref}`hot-reload-workflow`)
 
 ---
 
