@@ -8,8 +8,8 @@ logo: "logo.png"
 
 # Custom Metadata
 project_metadata:
-  # tags: ["Geospatial Analysis", "Crime Mapping", "Data Science", "Python", "Jupyter Book"]
-  tags: ["tag 3", "tag 4"]
+  tags: ["Geospatial Analysis", "Crime Mapping", "Data Science", "Python", "Jupyter Book"]
+  # tags: ["tag 3", "tag 4"]
 
 # Sphinx exclude patterns
 exclude_patterns: 
