@@ -65,7 +65,7 @@ jobs:
           jupyter-book build .
           ls -al
           tree _build
-          cat _build/logs
+          cat _build/logs/myst.build.json
 
       - name: Setup Pages
         id: pages
