@@ -77,7 +77,7 @@ jobs:
       - name: Find built HTML directory
         id: find_html
         run: |
-          HTML_DIR=$(find . -type d -path '*/_build/html' -print -quit || true)
+          HTML_DIR=$(find . -type d -path '_build/html' -print -quit || true)
           echo "Found: $HTML_DIR"
           echo "html_dir=$HTML_DIR" >> $GITHUB_OUTPUT
 
