@@ -60,7 +60,8 @@ jobs:
       - name: Build the book
         run: |
           pwd
-          jupyter-book build . -vv --all  # Rebuild all files, not just changed ones
+          jupyter-book clean . -all # Clean all build files
+          jupyter-book build .  # Rebuild all files, not just changed ones
           ls -la 
 
       - name: Setup Pages
