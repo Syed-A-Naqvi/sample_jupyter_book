@@ -60,33 +60,7 @@ jobs:
       - name: Build the book
         run: |
           pwd
-          jupyter-book build .
-
-      - name: "Debug: list files and build output"
-        run: |
-          echo "Repository root listing:"
-          pwd
-          ls -la
-          echo "--- sample_jupyter_book (if exists) ---"
-          ls -la sample_jupyter_book || true
-          echo "--- All _build directories ---"
-          find . -type d -name _build -print || true
-          echo "Recursive (last 200 lines):"
-          ls -R | tail -n 200
-
-      - name: Find built HTML directory
-        id: find_html
-        run: |
-          HTML_DIR=$(find . -type d -path '_build/html' -print -quit || true)
-          echo "Found: $HTML_DIR"
-          echo "html_dir=$HTML_DIR" >> $GITHUB_OUTPUT
-
-      - name: Fail if no built site found
-        if: ${{ steps.find_html.outputs.html_dir == '' }}
-        run: |
-          echo "ERROR: no built HTML directory found (searched for */_build/html)."
-          echo "Check the Build the book step output above for errors or adjust the source folder."
-          exit 1
+          jupyter-book build . -vvv
 
       - name: Setup Pages
         id: pages
