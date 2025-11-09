@@ -60,7 +60,9 @@ jobs:
       - name: Build the book
         run: |
           pwd
+          ls -al
           jupyter-book build .
+          ls -al
           ls _build/html 
 
       - name: Setup Pages
