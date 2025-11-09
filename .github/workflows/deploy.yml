@@ -63,7 +63,7 @@ jobs:
           ls -al
           jupyter-book build .
           ls -al
-          ls _build/html 
+          ls _build
 
       - name: Setup Pages
         id: pages
