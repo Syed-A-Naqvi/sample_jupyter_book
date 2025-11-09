@@ -57,24 +57,11 @@ jobs:
           # Add any other Python packages you need to build your book
           # pip install -r requirements.txt
 
-      - name: "Build the book (diagnostics)"
-        run: | 
-          set -euo pipefail
-          python -m pip install --upgrade pip
-          pip install jupyter-book
-          echo "Working dir: $(pwd)"
-          echo "Repo listing:"
-          ls -la
-          echo "Running jupyter-book build (capturing all output)..."
-          jupyter-book build . -vvv 2>&1 | tee jbook-build.log || true
-          echo "=== Last 200 lines of jbook-build.log ==="
-          tail -n 200 jbook-build.log || true
-          echo "Contents of _build (if created):"
-          ls -la _build || true
-          if [ ! -d "_build/html" ]; then
-            echo "ERROR: _build/html not found. See jbook-build.log above. Failing job."
-            exit 1
-          fi
+      - name: Build the book
+        run: |
+          pwd
+          jupyter-book build . -vv --all  # Rebuild all files, not just changed ones
+          ls -la 
 
       - name: Setup Pages
         id: pages
