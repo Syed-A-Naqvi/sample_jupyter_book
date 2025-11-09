@@ -29,7 +29,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.11'
 
       - name: Update overview.md date
         run: |
@@ -57,10 +57,24 @@ jobs:
           # Add any other Python packages you need to build your book
           # pip install -r requirements.txt
 
-      - name: Build the book
-        run: |
-          pwd
-          jupyter-book build . -v
+      - name: "Build the book (diagnostics)"
+        run: | 
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          pip install jupyter-book
+          echo "Working dir: $(pwd)"
+          echo "Repo listing:"
+          ls -la
+          echo "Running jupyter-book build (capturing all output)..."
+          jupyter-book build . -vvv 2>&1 | tee jbook-build.log || true
+          echo "=== Last 200 lines of jbook-build.log ==="
+          tail -n 200 jbook-build.log || true
+          echo "Contents of _build (if created):"
+          ls -la _build || true
+          if [ ! -d "_build/html" ]; then
+            echo "ERROR: _build/html not found. See jbook-build.log above. Failing job."
+            exit 1
+          fi
 
       - name: Setup Pages
         id: pages
@@ -109,7 +123,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
