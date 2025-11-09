@@ -60,7 +60,7 @@ jobs:
       - name: Build the book
         run: |
           pwd
-          jupyter-book build . -vvv
+          jupyter-book build . -v
 
       - name: Setup Pages
         id: pages
