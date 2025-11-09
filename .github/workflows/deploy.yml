@@ -54,6 +54,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install jupyter-book
+          sudo apt-get install -y tree
           # Add any other Python packages you need to build your book
           # pip install -r requirements.txt
 
@@ -63,7 +64,8 @@ jobs:
           ls -al
           jupyter-book build .
           ls -al
-          ls _build
+          tree _build
+          cat _build/logs
 
       - name: Setup Pages
         id: pages
