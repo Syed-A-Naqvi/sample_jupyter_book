@@ -19,10 +19,10 @@ html[data-theme="light"] {
     --pst-color-accent-bg: #E8DDD0;            /* Light warm beige */
     
     /* Backgrounds */
-    --pst-color-background: #FAF7F2;           /* Warm Cream - Main background */
-    --pst-color-on-background: #F0EBE3;        /* Light Warm Grey - Cards/panels */
-    --pst-color-surface: #F0EBE3;              /* Light Warm Grey - Surfaces */
-    --pst-color-panel-background: #F0EBE3;     /* Light Warm Grey - Panels */
+    --pst-color-background: #F0EBE3;           /* Warm Cream - Main background */
+    --pst-color-on-background: #E8DDD0;        /* Light Warm Grey - Cards/panels */
+    --pst-color-surface: #E8DDD0;              /* Light Warm Grey - Surfaces */
+    --pst-color-panel-background: #E8DDD0;     /* Light Warm Grey - Panels */
     --pst-color-on-surface: #3D3126;           /* Deep Charcoal Brown - Text on surface */
     
     /* Text Colors */
@@ -164,10 +164,10 @@ html[data-theme="dark"] {
     --pst-color-accent-bg: #2d1a1e;            /* Dark red background */
     
     /* Backgrounds */
-    --pst-color-background: #181410;           /* Deep Charcoal Brown - Main background */
-    --pst-color-on-background: #211B16;        /* Soft Charcoal Brown - Cards/panels */
-    --pst-color-surface: #211B16;              /* Soft Charcoal Brown - Surfaces */
-    --pst-color-panel-background: #211B16;     /* Soft Charcoal Brown - Panels */
+    --pst-color-background: #211B16;           /* Deep Charcoal Brown - Main background */
+    --pst-color-on-background: #28221D;        /* Soft Charcoal Brown - Cards/panels */
+    --pst-color-surface: #28221D;              /* Soft Charcoal Brown - Surfaces */
+    --pst-color-panel-background: #28221D;     /* Soft Charcoal Brown - Panels */
     --pst-color-on-surface: #C4BFB4;           /* Soft Warm Taupe - Text on surface */
     
     /* Text Colors */
