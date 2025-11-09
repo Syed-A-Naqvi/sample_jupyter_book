@@ -64,6 +64,7 @@ jobs:
       - name: "Debug: list files and build output"
         run: |
           echo "Repository root listing:"
+          pwd
           ls -la
           echo "--- sample_jupyter_book (if exists) ---"
           ls -la sample_jupyter_book || true
