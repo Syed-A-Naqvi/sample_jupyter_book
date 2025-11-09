@@ -61,7 +61,7 @@ jobs:
         run: |
           jupyter-book build .
 
-      - name: Debug: list files and build output
+      - name: "Debug: list files and build output"
         run: |
           echo "Repository root listing:"
           ls -la
