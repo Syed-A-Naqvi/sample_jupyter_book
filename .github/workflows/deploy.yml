@@ -61,7 +61,7 @@ jobs:
         run: |
           pwd
           jupyter-book build .
-          ls -la 
+          ls _build/html 
 
       - name: Setup Pages
         id: pages
