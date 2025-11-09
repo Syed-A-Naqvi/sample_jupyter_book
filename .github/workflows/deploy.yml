@@ -59,6 +59,7 @@ jobs:
 
       - name: Build the book
         run: |
+          pwd
           jupyter-book build .
 
       - name: "Debug: list files and build output"
