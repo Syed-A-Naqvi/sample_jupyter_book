@@ -89,6 +89,24 @@ function removeIframeSpecificStylesheet() {
     }
 }
 
+/** 
+ * Removes buttons that are irrelevant in an iframe context.
+ */
+function removeButtonsInIframeContext() {
+    
+    const buttonSelectors = [
+        document.querySelector(".theme-switch-button"),
+        document.querySelector(".btn-fullscreen-button")
+    ]
+
+    buttonSelectors.forEach(selector => {
+        if (selector) {
+            selector.remove();
+        }
+    });
+
+}
+
 /**
  * Initializes the theme synchronization logic based on whether the page is in an iframe.
  */
@@ -102,6 +120,7 @@ function initializeThemeSync() {
     if (window.self !== window.top) {
         // Page is in an iframe
         setupIframeThemeListener(trustedOrigins);
+        removeButtonsInIframeContext();
     } else {
         // Page is not in an iframe
         removeIframeSpecificStylesheet();

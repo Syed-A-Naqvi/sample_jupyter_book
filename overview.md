@@ -2,7 +2,7 @@
 
 **Geospatial analysis of crime incidents to identify high-risk areas and temporal patterns**
 
-Syed Naqvi
+Arham Naqvi
 
 *Last Updated: nope, 2025*
 

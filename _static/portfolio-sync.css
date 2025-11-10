@@ -155,12 +155,12 @@ html[data-theme="dark"] {
     --pst-color-primary-highlight: #A08A60;    /* Darker gold for hover */
     
     /* Secondary Colors */
-    --pst-color-secondary: #c94857;            /* Bright Deep Red - Secondary & hover states */
+    --pst-color-secondary: #7C1D1D;            /* Deep Red - Secondary & hover states */
     --pst-color-secondary-bg: #2d1a1e;         /* Dark red background */
     --pst-color-secondary-text: #D8D3C8;       /* Warm Off-White text */
     
     /* Accent */
-    --pst-color-accent: #c94857;               /* Bright Deep Red - Focus/accents */
+    --pst-color-accent: #7C1D1D;               /* Deep Red - Focus/accents */
     --pst-color-accent-bg: #2d1a1e;            /* Dark red background */
     
     /* Backgrounds */
@@ -183,7 +183,7 @@ html[data-theme="dark"] {
     
     /* Links */
     --pst-color-link: #C4A878;                 /* Muted Warm Gold */
-    --pst-color-link-hover: #c94857;           /* Bright Deep Red on hover */
+    --pst-color-link-hover: #7C1D1D;           /* Deep Red on hover */
     
     /* Semantic Colors - More vibrant and conventional */
     --pst-color-info: #5dade2;                 /* Lighter Blue - Info */
@@ -193,7 +193,7 @@ html[data-theme="dark"] {
     --pst-color-warning-text: #D8D3C8;
     --pst-color-success: #52c77a;              /* Lighter Green - Success */
     --pst-color-success-bg: #1a2b1f;
-    --pst-color-danger: #c94857;               /* Brighter Deep Red - Danger */
+    --pst-color-danger: #7C1D1D;               /* Deep Red - Danger */
     --pst-color-danger-bg: #2d1a1e;
     --pst-color-danger-text: #D8D3C8;
     --pst-color-attention: #f39c12;            /* Vibrant Orange */
@@ -226,7 +226,7 @@ html[data-theme="dark"] {
     --sd-color-primary-bg: #28221D;
     --sd-color-primary-bg-text: #D8D3C8;
     
-    --sd-color-secondary: #c94857;
+    --sd-color-secondary: #7C1D1D;
     --sd-color-secondary-text: #181410;
     --sd-color-secondary-highlight: #a73543;
     --sd-color-secondary-bg: #2d1a1e;
@@ -250,7 +250,7 @@ html[data-theme="dark"] {
     --sd-color-warning-bg: #2d2416;
     --sd-color-warning-bg-text: #D8D3C8;
     
-    --sd-color-danger: #c94857;
+    --sd-color-danger: #7C1D1D;
     --sd-color-danger-text: #181410;
     --sd-color-danger-highlight: #a73543;
     --sd-color-danger-bg: #2d1a1e;

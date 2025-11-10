@@ -1,2 +1,5 @@
 # ignoring build files
 _build/
+
+# ignoring sphinx config
+conf.py
