@@ -101,6 +101,7 @@ function removeButtonsInIframeContext() {
 
     buttonSelectors.forEach(selector => {
         if (selector) {
+            console.log("Removing button in iframe context:", selector);
             selector.remove();
         }
     });
