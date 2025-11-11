@@ -108,6 +108,12 @@ function removeButtonsInIframeContext() {
 
 }
 
+// removing horizontal scroll from the website
+function removeHorizontalScroll() {
+    const bookBody = document.querySelector("body");
+    bookBody.style.overflowX = "hidden";
+}
+
 /**
  * Initializes the theme synchronization logic based on whether the page is in an iframe.
  */
@@ -122,6 +128,7 @@ function initializeThemeSync() {
         // Page is in an iframe
         setupIframeThemeListener(trustedOrigins);
         removeButtonsInIframeContext();
+        removeHorizontalScroll();
     } else {
         // Page is not in an iframe
         removeIframeSpecificStylesheet();
