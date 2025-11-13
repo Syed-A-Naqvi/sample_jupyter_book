@@ -40,7 +40,7 @@ jobs:
       - name: Update README.md header
         run: |
           # Execute Python script to update landing page README header
-          python scripts/update_header.py
+          python scripts/update-header.py
 
       - name: Commit header update
         run: |
