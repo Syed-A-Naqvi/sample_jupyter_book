@@ -132,8 +132,10 @@
         const tocLinks = Array.from(tocNav.querySelectorAll('a.nav-link[href^="#"]'));
         const activeLinks = [];
         let activeSection = null;
+        let observerTopMargin = 0;
+        let observerBottomMargin = 0;
         
-        // Set active link and its parents
+        // activate link and all parents
         function setActiveLink(link) {
             if (!link) return;
             
@@ -157,12 +159,40 @@
         // function for enabling and disabling intersection observer
         function toggleObserver(enable) {
             if (enable) {
-                sectionLinkMap.forEach((link, section) => observer.observe(section));
+                sectionLinkMap.forEach((link, section) => {
+                    try {
+                        observer.observe(section);
+                    }
+                    catch (e) {
+                        console.warn("Failed to observe section:", section.id, e);
+                    }
+                });
                 console.log("Observer enabled");
             } else {
                 observer.disconnect();
                 console.log("Observer disabled");
             }
+        }
+
+        // Calculate responsive rootMargin based on viewport size
+        function getResponsiveRootMargin() {
+            const viewportHeight = window.innerHeight;
+            const viewportWidth = window.innerWidth;
+            
+            // Mobile/Responsive mode detection
+            const isMobile = viewportWidth <= 768;
+            
+            // Top offset: smaller on mobile
+            observerTopMargin = 70;
+            
+            // Bottom margin: more conservative on mobile
+            // Use pixel values instead of percentages for better reliability
+            // Keep a single pixel width to avoid edge cases
+            observerBottomMargin = viewportHeight - observerTopMargin - 1;
+
+            const margin = `-${observerTopMargin}px 0px -${observerBottomMargin}px 0px`;
+            console.log(`[ScrollSpy] Viewport: ${viewportWidth}x${viewportHeight}, RootMargin: ${margin}`);
+            return margin;
         }
         
         // Build mappings and attach click handlers
@@ -170,16 +200,10 @@
             const href = link.getAttribute('href');
             if (!href || href === '#') return;
             
+            // Map section to link
             const targetId = href.slice(1);
             const targetSection = document.getElementById(targetId);
-            
-            // Build section-link mapping (exclude h1)
-            if (targetSection) {
-                const heading = targetSection.querySelector('h1, h2, h3, h4, h5, h6');
-                if (heading?.tagName.toLowerCase() !== 'h1') {
-                    sectionLinkMap.set(targetSection, link);
-                }
-            }
+            sectionLinkMap.set(targetSection, link);
             
             // Build parent-child hierarchy
             const parentLi = link.closest('li');
@@ -216,27 +240,20 @@
         
         // IntersectionObserver for scroll-based activation
         const observer = new IntersectionObserver((entries) => {
-            let mostVisibleSection = null;
-            let maxVisibility = 0;
             
             entries.forEach(entry => {
-                if (entry.isIntersecting && entry.intersectionRatio > maxVisibility) {
-                    maxVisibility = entry.intersectionRatio;
-                    mostVisibleSection = entry.target;
+                if (entry.isIntersecting) {
+
+                    const targetSection = entry.target;
+                    setActiveLink(sectionLinkMap.get(targetSection));
+
                 }
             });
             
-            if (mostVisibleSection && mostVisibleSection !== activeSection) {
-                activeSection = mostVisibleSection;
-                const link = sectionLinkMap.get(mostVisibleSection);
-                if (link) setActiveLink(link);
-                console.log("Most Visible section:", mostVisibleSection.id);
-                console.log("Active link changed to:", link.href);
-            }
         }, {
             root: null,
-            rootMargin: '-180px 0px -80% 0px',
-            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+            rootMargin: getResponsiveRootMargin(),
+            threshold: 0
         });
         
         // Observe all sections
@@ -246,6 +263,20 @@
                 console.log('user initiated scroll detected via', eventType);
                 toggleObserver(true);
             }, { passive: true });
+        });
+        
+        // Handle viewport resize (important for responsive design mode)
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                console.log('[ScrollSpy] Viewport resized, reinitializing observer...');
+                toggleObserver(false);
+
+                observer.rootMargin = getResponsiveRootMargin();
+
+                toggleObserver(true);
+            }, 1000); // Debounce resize events
         });
         
         // Initializing page startup state
@@ -263,6 +294,19 @@
         }
         // Start observing
         toggleObserver(true);
+
+        // creating an overlay to visualize the rootMargin area (for debugging)
+        // const overlay = document.createElement('div');
+        // overlay.style.position = 'fixed';
+        // overlay.style.top = `${observerTopMargin}px`;
+        // overlay.style.left = '0';
+        // overlay.style.width = '100%';
+        // overlay.style.height = `calc(100% - ${observerTopMargin}px - ${observerBottomMargin}px)`;
+        // overlay.style.backgroundColor = 'rgba(255, 0, 0, 0.1)';
+        // overlay.style.pointerEvents = 'none';
+        // overlay.style.zIndex = '9999';
+        // document.body.appendChild(overlay);
+
     }
     
     // ============================================================================

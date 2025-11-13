@@ -59,10 +59,14 @@ def update_readme(metadata: dict[str, str]) -> None:
         with open("README.md", "r") as f:
             # get all lines in the file
             lines = f.readlines()
+            lines_to_remove = 0
             for line in lines:
                 if line.strip() == "---":
                     break
-                lines.remove(line)
+                lines_to_remove += 1
+            
+            # Remove existing metadata block
+            lines = lines[lines_to_remove:]  # +1 to remove the
             
             # Insert metadata at the top
             lines.insert(0, f"*Last Updated: {metadata['updated']}*\n\n")

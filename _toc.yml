@@ -3,9 +3,34 @@
 
 format: jb-book
 root: README
+
 chapters:
-- file: SCROLLSPY_EXPLANATION
-# - section: file4
-#   chapters:
-#   - file: file4a
-#   - file: file4b
+  # ========================================
+  # System Architecture & Implementation
+  # ========================================
+  - file: GITHUB_ACTIONS
+    title: GitHub Actions Workflow
+  
+  - file: PORTFOLIO_INTEGRATION
+    title: Portfolio Integration
+  
+  # ========================================
+  # Advanced Features
+  # ========================================
+  - file: THEME_SYNC
+    title: Theme Synchronization
+  
+  - file: SCROLLSPY_EXPLANATION
+    title: Custom ScrollSpy Implementation
+
+  # ========================================
+  # Add your project chapters below
+  # ========================================
+  # - file: introduction
+  # - file: methodology
+  #   sections:
+  #     - file: data-collection
+  #     - file: preprocessing
+  # - file: analysis
+  # - file: results
+  # - file: conclusion
