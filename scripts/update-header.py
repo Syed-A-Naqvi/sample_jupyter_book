@@ -2,6 +2,24 @@ from datetime import datetime
 import sys
 import yaml
 
+def get_ordinal(n: int) -> str:
+    """Return ordinal string for an integer n (e.g., 1 -> '1st', 2 -> '2nd')."""
+
+    if 10 <= n % 100 <= 20:
+        suffix = 'th'
+    else:
+        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')
+    return f"{n}{suffix}"
+
+def format_date_with_ordinal(date: datetime) -> str:
+    """Format date as 'Month Day<ordinal>, Year' (e.g., 'November 12th, 2025')."""
+
+    month = date.strftime('%B')
+    day = get_ordinal(date.day)
+    year = date.year
+
+    return f"{month} {day}, {year}"
+
 def extract_metadata() -> dict[str, str]:
     """Extract project metadata from config."""
 
@@ -14,9 +32,8 @@ def extract_metadata() -> dict[str, str]:
             title = config.get("title", "No Title")
             description = config.get("description", "No Description")
             author = config.get("author", "No Author")
-            # Get current date
-            current_date = datetime.now().strftime("%d-%m-%Y")
-            
+            # Get current date in 'Month Day<ordinal>, Year' format
+            current_date = format_date_with_ordinal(datetime.now())
             return {
                 "title": title,
                 "description": description,
