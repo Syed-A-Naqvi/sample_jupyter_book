@@ -101,7 +101,7 @@
 
     /**
      * Custom ScrollSpy for iframe context
-     * Matches Bootstrap config: 180px top offset, -60% bottom margin
+     * 180px top offset, -80% bottom margin
      */
     let scrollSpyInitialized = false;
     
@@ -240,7 +240,7 @@
         });
         
         // Observe all sections
-        ['wheel', 'keydown', 'mousedown'].forEach(eventType => {
+        ['wheel', 'keydown', 'mousedown', 'touchstart'].forEach(eventType => {
             window.addEventListener(eventType, (e) => {
                 // This is a user-initiated scroll
                 console.log('user initiated scroll detected via', eventType);
@@ -248,13 +248,21 @@
             }, { passive: true });
         });
         
-        // Activate first section immediately
+        // Initializing page startup state
+        // removing any active links
+        sectionLinkMap.forEach((link, section) => {
+            link.classList.remove('active');
+            link.closest('li')?.classList.remove('active');
+        });
+        // setting first section as active
         const firstSection = sectionLinkMap.keys().next().value;
         if (firstSection) {
             activeSection = firstSection;
             const link = sectionLinkMap.get(firstSection);
             if (link) setActiveLink(link);
         }
+        // Start observing
+        toggleObserver(true);
     }
     
     // ============================================================================

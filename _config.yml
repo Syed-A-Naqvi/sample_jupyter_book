@@ -1,13 +1,13 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 title: "Jupyter Book Template for Data Science Projects"
-description: "A Jupyter Book template for data science projects with seamless GitHub Pages deployment and automated portfolio integration/updates via GitHub Actions."
+description: "A Jupyter Book template for data science projects with GitHub Pages deployment and automated portfolio integration/updating using GitHub Actions."
 author: "Arham Naqvi"
 logo: "logo.png"
 
 # Custom Metadata
 project_metadata:
-  tags: ["dev ops", "automation", "software engineering", "web development", "python"]
+  tags: ["jupyter book", "documentation", "automation", "github actions", "template", "python", "javascript"]
   # tags: ["tag 3", "tag 4"]
 
 # Sphinx exclude patterns
@@ -37,8 +37,8 @@ bibtex_bibfiles:
 #   path_to_book: docs  # Optional path to your book, relative to the repository root
 #   branch: main  # Which branch of the repository should be used when creating links (optional)
 
-# # Add GitHub buttons to your book
-# # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
-# html:
-#   use_issues_button: true
-#   use_repository_button: true
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_issues_button: true
+  use_repository_button: true
