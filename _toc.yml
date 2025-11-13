@@ -4,9 +4,7 @@
 format: jb-book
 root: README
 chapters:
-- file: overview
-# - file: file2
-# - file: file3
+- file: SCROLLSPY_EXPLANATION
 # - section: file4
 #   chapters:
 #   - file: file4a

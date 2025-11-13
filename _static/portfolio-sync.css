@@ -32,8 +32,8 @@ html[data-theme="light"] {
     --pst-color-text-heading: #2A1F16;         /* Rich Dark Brown - Heading emphasis */
     
     /* Borders & Shadows */
-    --pst-color-border: #E8DDD0;               /* Warm Beige - Dividers */
-    --pst-color-border-muted: rgba(212, 165, 116, 0.2);  /* Muted gold border */
+    --pst-color-border: #BFA892;               /* Lightened warm brown, harmonized with #8B7562 */
+    --pst-color-border-muted: rgba(191, 168, 146, 0.10);  /* Muted, lighter version of #BFA892 */
     --pst-color-shadow: rgba(61, 49, 38, 0.15);
     
     /* Links */
@@ -42,17 +42,17 @@ html[data-theme="light"] {
     
     /* Semantic Colors - More vibrant and conventional */
     --pst-color-info: #3498db;                 /* Bright Blue - Info */
-    --pst-color-info-bg: #e3f2fd;
+        --pst-color-info-bg: #b3d8fa;           /* More saturated blue background */
     --pst-color-warning: #f39c12;              /* Vibrant Orange - Warning */
-    --pst-color-warning-bg: #fff3e0;
+        --pst-color-warning-bg: #ffd180;        /* Deeper orange background */
     --pst-color-warning-text: #2A1F16;
     --pst-color-success: #27ae60;              /* Green - Success */
-    --pst-color-success-bg: #e8f5e9;
+        --pst-color-success-bg: #a5d6a7;        /* Deeper green background */
     --pst-color-danger: #8B1C31;               /* Deep Burgundy Red - Danger */
-    --pst-color-danger-bg: #F9E1E4;
+        --pst-color-danger-bg: #f48fb1;         /* Deeper pink/red background */
     --pst-color-danger-text: #FAF7F2;
     --pst-color-attention: #f39c12;            /* Vibrant Orange */
-    --pst-color-attention-bg: #fff3e0;
+        --pst-color-attention-bg: #ffd180;      /* Deeper orange background */
     
     /* Code & Inline Elements */
     --pst-color-inline-code: #8B1C31;          /* Deep Burgundy */
@@ -177,8 +177,8 @@ html[data-theme="dark"] {
     --pst-color-text-heading: #D8D3C8;         /* Warm Off-White - Heading emphasis */
     
     /* Borders & Shadows */
-    --pst-color-border: #28221D;               /* Charcoal Brown - Dividers */
-    --pst-color-border-muted: rgba(139, 117, 98, 0.2);  /* Muted warm brown border */
+    --pst-color-border: #3A2F25;               /* Charcoal Brown - Dividers */
+    --pst-color-border-muted: rgba(58, 47, 37, 0.10);  /* Muted, lighter version of #3A2F25 */
     --pst-color-shadow: rgba(0, 0, 0, 0.4);
     
     /* Links */
@@ -292,4 +292,12 @@ html[data-theme="dark"] {
 .sd-card-header.bg-primary {
     background-color: var(--pst-color-primary-bg) !important;
     color: var(--pst-color-text-heading) !important;
+}
+
+/* ========================================
+   HR DIVIDER FIX FOR IFRAME
+   ======================================== */
+/* Override low-contrast hr borders to ensure visibility */
+hr.docutils {
+    opacity: 0.75 !important;
 }

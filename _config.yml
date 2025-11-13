@@ -1,14 +1,13 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
-title: "Crime Hotspot Mapping Analysis"
-description: "Geospatial analysis of crime incidents for identifying high-risk areas and temporal patterns."
+title: "Jupyter Book Template for Data Science Projects"
+description: "A professional, automated Jupyter Book template for creating data science projects with seamless GitHub Pages deployment and automated portfolio integration."
 author: "Arham Naqvi"
-copyright: "2025"
 logo: "logo.png"
 
 # Custom Metadata
 project_metadata:
-  tags: ["geospatial analysis", "crime mapping", "data science", "python", "jupyter book"]
+  tags: ["dev ops", "automation", "software engineering", "web development", "python"]
   # tags: ["tag 3", "tag 4"]
 
 # Sphinx exclude patterns
@@ -28,18 +27,18 @@ latex:
   latex_documents:
     targetname: book.tex
 
-# Add a bibtex file so that we can create citations
+# Add a bibtex file for citations
 bibtex_bibfiles:
   - references.bib
 
-# Information about where the book exists on the web
-repository:
-  url: https://github.com/executablebooks/jupyter-book  # Online location of your book
-  path_to_book: docs  # Optional path to your book, relative to the repository root
-  branch: master  # Which branch of the repository should be used when creating links (optional)
+# # Information about where the book exists on the web
+# repository:
+#   url: https://github.com/executablebooks/jupyter-book  # Online location of your book
+#   path_to_book: docs  # Optional path to your book, relative to the repository root
+#   branch: main  # Which branch of the repository should be used when creating links (optional)
 
-# Add GitHub buttons to your book
-# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
-html:
-  use_issues_button: true
-  use_repository_button: true
+# # Add GitHub buttons to your book
+# # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+# html:
+#   use_issues_button: true
+#   use_repository_button: true

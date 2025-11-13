@@ -31,29 +31,24 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Update overview.md date
-        run: |
-          # Get current date
-          CURRENT_DATE=$(date +"%B %d, %Y")
-          
-          # Update the "Last Updated" line in overview.md
-          sed -i '0,/\*Last Updated:.*\*/s/\*Last Updated:.*\*/\*Last Updated: '"$CURRENT_DATE"'\*/' overview.md
-          
-          # Display the change
-          echo "Updated overview.md with date: $CURRENT_DATE"
-
-      - name: Commit date update
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update: Last Updated date [skip ci]"
-          git push
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r book_requirements.txt
+          pip install -r scripts/script_requirements.txt
+          
+      - name: Update README.md header
+        run: |
+          # Execute Python script to update landing page README header
+          python scripts/update_header.py
+
+      - name: Commit header update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update: README header [skip ci]"
+          git push
 
       - name: Build the book
         run: |
