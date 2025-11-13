@@ -1,7 +1,7 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 title: "Jupyter Book Template for Data Science Projects"
-description: "A professional, automated Jupyter Book template for creating data science projects with seamless GitHub Pages deployment and automated portfolio integration."
+description: "A Jupyter Book template for data science projects with seamless GitHub Pages deployment and automated portfolio integration/updates via GitHub Actions."
 author: "Arham Naqvi"
 logo: "logo.png"
 
