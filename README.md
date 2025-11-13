@@ -1,10 +1,12 @@
 # Jupyter Book Template for Data Science Projects
 
-**A professional, automated Jupyter Book template for creating data science projects with seamless GitHub Pages deployment and automated portfolio integration.**
+**A Jupyter Book template for data science projects with seamless GitHub Pages deployment and automated portfolio integration/updates via GitHub Actions.**
 
 *Author: Arham Naqvi*
 
 *Last Updated: November 13th, 2025*
+
+
 
 
 
