@@ -20,7 +20,7 @@ This Jupyter Book template includes a sophisticated GitHub Actions workflow that
 
 The workflow consists of three jobs that execute in sequence:
 
-```
+```bash
 ┌─────────────┐
 │    BUILD    │ ← Updates README, builds HTML
 └──────┬──────┘

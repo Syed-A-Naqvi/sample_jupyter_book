@@ -131,7 +131,6 @@
         const childToParentMap = new Map();
         const tocLinks = Array.from(tocNav.querySelectorAll('a.nav-link[href^="#"]'));
         const activeLinks = [];
-        let activeSection = null;
         let observerTopMargin = 0;
         let observerBottomMargin = 0;
         
@@ -246,7 +245,14 @@
 
                     const targetSection = entry.target;
                     setActiveLink(sectionLinkMap.get(targetSection));
+                    console.log("Section in view:", targetSection.id);
+                    console.log("Active link changed to:", sectionLinkMap.get(targetSection)?.href);
 
+                }
+                else {
+                    // section not in view
+                    console.log("Section out of view:", entry.target.id);
+                    console.log("Section intersection ratio:", entry.intersectionRatio);
                 }
             });
             
