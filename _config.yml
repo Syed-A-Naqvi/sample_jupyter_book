@@ -4,7 +4,7 @@ title: "Jupyter Book Template for Data Science Projects"
 description: "A Jupyter Book template for data science projects with GitHub Pages deployment and automated portfolio integration/updating using GitHub Actions."
 author: "Arham Naqvi"
 logo: "logo.png"
-copyright: "2025, Arham Naqvi"
+copyright: "2025"
 
 # Custom Metadata
 project_metadata:
