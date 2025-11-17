@@ -106,6 +106,7 @@
     let scrollSpyInitialized = false;
     
     function initializeCustomScrollSpy() {
+
         // Prevent duplicate initialization
         if (scrollSpyInitialized) return;
         scrollSpyInitialized = true;
@@ -131,8 +132,7 @@
         const childToParentMap = new Map();
         const tocLinks = Array.from(tocNav.querySelectorAll('a.nav-link[href^="#"]'));
         const activeLinks = [];
-        let observerTopMargin = 0;
-        let observerBottomMargin = 0;
+        let observer = getResponsiveObserver();
         
         // activate link and all parents
         function setActiveLink(link) {
@@ -166,32 +166,47 @@
                         console.warn("Failed to observe section:", section.id, e);
                     }
                 });
-                console.log("Observer enabled");
             } else {
-                observer.disconnect();
-                console.log("Observer disabled");
+                try {
+                    observer.disconnect();
+                }
+                catch (e) {
+                    console.warn("Failed to disconnect observer:", e);
+                }
             }
         }
 
         // Calculate responsive rootMargin based on viewport size
-        function getResponsiveRootMargin() {
+        function getResponsiveObserver() {
             const viewportHeight = window.innerHeight;
             const viewportWidth = window.innerWidth;
-            
-            // Mobile/Responsive mode detection
-            const isMobile = viewportWidth <= 768;
-            
+                        
             // Top offset: smaller on mobile
-            observerTopMargin = 70;
+            let observerTopMargin = 70;
             
             // Bottom margin: more conservative on mobile
             // Use pixel values instead of percentages for better reliability
             // Keep a single pixel width to avoid edge cases
-            observerBottomMargin = viewportHeight - observerTopMargin - 1;
+            let observerBottomMargin = viewportHeight - observerTopMargin - 1;
 
             const margin = `-${observerTopMargin}px 0px -${observerBottomMargin}px 0px`;
             console.log(`[ScrollSpy] Viewport: ${viewportWidth}x${viewportHeight}, RootMargin: ${margin}`);
-            return margin;
+
+            return new IntersectionObserver((entries) => {
+            
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+
+                        const targetSection = entry.target;
+                        setActiveLink(sectionLinkMap.get(targetSection));
+
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: margin,
+                threshold: 0
+            });
         }
         
         // Build mappings and attach click handlers
@@ -212,61 +227,31 @@
                 const parentLink = grandparentLi?.querySelector('a.nav-link');
                 if (parentLink) childToParentMap.set(link, parentLink);
             }
-
-            // preventing link mousedown from enabling observer
+            
             link.addEventListener('mousedown', (e) => {
+                // Prevent mousedown from enabling observer
                 e.stopPropagation();
             });
-            
+
             // Smooth scroll on click
             link.addEventListener('click', (e) => {
 
                 e.preventDefault();
-
-                console.log("Link clicked:", link.href);
                 
                 if (targetSection) {
 
                     toggleObserver(false);
                     targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    console.log("Scrolling to section:", targetSection.id);
                     setActiveLink(link);
-                    console.log("Active link changed to:", link.href);
 
                 }
             });
         });
-        
-        // IntersectionObserver for scroll-based activation
-        const observer = new IntersectionObserver((entries) => {
-            
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
 
-                    const targetSection = entry.target;
-                    setActiveLink(sectionLinkMap.get(targetSection));
-                    console.log("Section in view:", targetSection.id);
-                    console.log("Active link changed to:", sectionLinkMap.get(targetSection)?.href);
-
-                }
-                else {
-                    // section not in view
-                    console.log("Section out of view:", entry.target.id);
-                    console.log("Section intersection ratio:", entry.intersectionRatio);
-                }
-            });
-            
-        }, {
-            root: null,
-            rootMargin: getResponsiveRootMargin(),
-            threshold: 0
-        });
-        
         // Observe all sections
         ['wheel', 'keydown', 'mousedown', 'touchstart'].forEach(eventType => {
             window.addEventListener(eventType, (e) => {
-                // This is a user-initiated scroll
-                console.log('user initiated scroll detected via', eventType);
+                // This may be a user-initiated scroll
                 toggleObserver(true);
             }, { passive: true });
         });
@@ -279,7 +264,7 @@
                 console.log('[ScrollSpy] Viewport resized, reinitializing observer...');
                 toggleObserver(false);
 
-                observer.rootMargin = getResponsiveRootMargin();
+                observer = getResponsiveObserver();
 
                 toggleObserver(true);
             }, 1000); // Debounce resize events
@@ -294,7 +279,6 @@
         // setting first section as active
         const firstSection = sectionLinkMap.keys().next().value;
         if (firstSection) {
-            activeSection = firstSection;
             const link = sectionLinkMap.get(firstSection);
             if (link) setActiveLink(link);
         }
