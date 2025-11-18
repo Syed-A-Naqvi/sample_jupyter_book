@@ -15,43 +15,65 @@ A production-ready template for creating professional data science project docum
 ### Core Features
 
 **Jupyter Book Foundation:**
+
 - Pre-configured structure supporting Markdown, Jupyter Notebooks, and MyST syntax
+
 - Interactive code execution and visualizations
+
 - Built-in search and citation management
 
 **Enhanced Visual Integration:**
+
 - Custom CSS/JS for portfolio-synchronized themes
+
 - Light/dark mode synchronization
+
 - Responsive design for all devices
 
 **Automation:**
+
 - GitHub Pages deployment via GitHub Actions
+
 - Automatic README header updates with current date
+
 - Automatic portfolio updates via POST requests on GitHub pushes
 
 **Portfolio Integration:**
+
 - Real-time project updates reflected in portfolio gallery
+
 - Cross-origin theme synchronization
+
 - Secure postMessage API communication
+
 - Metadata automatically extracted from `_config.yml`
 
 ### Documentation Guide
 
 **Getting Started:**
-- **[Quick Start](#-quick-start)** - Clone, configure, and deploy
-- **[Jupyter Book Basics](#-jupyter-book-basics)** - MyST syntax and formatting
+
+- **[Quick Start](#quick-start)** - Clone, configure, and deploy
+
+- **[Jupyter Book Basics](#jupyter-book-basics)** - MyST syntax and formatting
 
 **System Architecture:**
+
 - **[GitHub Actions Workflow](GITHUB_ACTIONS.md)** - CI/CD pipeline documentation
+
 - **[Portfolio Integration](PORTFOLIO_INTEGRATION.md)** - Automated project synchronization
 
 **Advanced Features:**
+
 - **[Theme Synchronization](THEME_SYNC.md)** - Cross-iframe theme coordination
+
 - **[Custom ScrollSpy](SCROLLSPY_EXPLANATION.md)** - Table of contents navigation
 
 **Additional Resources:**
+
 - **[Troubleshooting](#-troubleshooting)** - Common issues and solutions
+
 - **[Repository Structure](#-repository-structure)** - Project organization
+
 - **[Building Locally](#-building-locally)** - Development workflow
 
 ---
@@ -106,30 +128,33 @@ The `README.md` is set as `root:` in `toc.yml` and serves as the book's landing 
 For projects with source code, figures, videos, or other assets:
 
 1. **Create dedicated directory** (e.g., `assets/` or `project/`) at project root
+
 2. **Organize assets** within this directory:
 
-   ```text
-   assets/
-   ├── figures/
-   │   ├── plot1.png
-   │   └── plot2.png
-   ├── data/
-   │   └── sample.csv
-   └── videos/
-       └── demo.mp4
-   ```
+```text
+assets/
+├── figures/
+│   ├── plot1.png
+│   └── plot2.png
+├── data/
+│   └── sample.csv
+└── videos/
+    └── demo.mp4
+```
 
 3. **Reference using relative paths** in `.md` or `.ipynb` files:
 
-   ```markdown
-   ![Plot](assets/figures/plot1.png)
-   
-   <video src="assets/videos/demo.mp4" controls></video>
-   ```
+```markdown
+![Plot](assets/figures/plot1.png)
+
+<video src="assets/videos/demo.mp4" controls></video>
+```
 
 4. **DO NOT add assets directory to `exclude_patterns`** in `_config.yml`
-   - Jupyter Book copies the entire directory to `_build/html/` during build
-   - Only exclude directories not wanted in final build (e.g., `scripts/`, raw data processing code)
+
+- Jupyter Book copies the entire directory to `_build/html/` during build
+
+- Only exclude directories not wanted in final build (e.g., `scripts/`, raw data processing code)
 
 ---
 
@@ -153,9 +178,13 @@ chapters:
 ```
 
 Key points:
+
 - `root` is the landing page (must always be `README.md` in this template)
+
 - Each `file` entry omits the `.md` or `.ipynb` extension
+
 - Use `sections` to create subsections under a chapter
+
 - Files appear in navigation in listed order
 
 ### MyST Markdown Directives
@@ -214,29 +243,29 @@ $$
 
 1. **Define references in `references.bib`:**
 
-   ```bibtex
-   @article{smith2023,
-     author = {Smith, John},
-     title = {Machine Learning Fundamentals},
-     journal = {Data Science Review},
-     year = {2023}
-   }
-   ```
+```bibtex
+@article{smith2023,
+  author = {Smith, John},
+  title = {Machine Learning Fundamentals},
+  journal = {Data Science Review},
+  year = {2023}
+}
+```
 
 2. **Cite in content:**
 
-   ```markdown
-   Research shows {cite}`smith2023` that...
-   ```
+```markdown
+Research shows {cite}`smith2023` that...
+```
 
 3. **Add bibliography section:**
 
-   ```markdown
-   ## References
-   
-   ```{bibliography}
-   ```
-   ```
+````markdown
+## References
+
+```{bibliography}
+```
+````
 
 #### Cross-References
 
@@ -332,10 +361,15 @@ console.log("Hello, JavaScript!");
 **Key Files:**
 
 - **`_config.yml`** - Book configuration and project metadata
+
 - **`_toc.yml`** - Navigation structure
+
 - **`README.md`** - Landing page (root in toc.yml)
+
 - **`_static/`** - Custom CSS/JS (not excluded from build)
+
 - **`scripts/`** - Helper scripts (excluded from build)
+
 - **`.github/workflows/deploy.yml`** - Automated deployment pipeline
 
 ---
@@ -368,8 +402,11 @@ sphinx-autobuild . _build/html --open-browser
 **Live reload behavior:**
 
 - Watches for changes to `.md`, `.ipynb`, `.yml`, `.css`, `.js` files
+
 - Automatically rebuilds affected pages
+
 - Refreshes browser automatically
+
 - Preserves scroll position when possible
 
 **Stopping the server:**
@@ -412,18 +449,23 @@ The template includes a complete CI/CD pipeline in `.github/workflows/deploy.yml
 Automatically runs on:
 
 - Push to `main` branch
+
 - Manual trigger via Actions tab
 
 ### Workflow Jobs
 
 1. **Build** - Updates README, builds HTML, uploads artifact
+
 2. **Deploy** - Publishes to GitHub Pages
+
 3. **Notify** - Sends metadata to portfolio repository
 
 ### Enabling GitHub Pages
 
 1. Go to repository Settings → Pages
+
 2. Source: "GitHub Actions"
+
 3. Save
 
 First deployment creates the `gh-pages` environment and publishes the site.
@@ -431,7 +473,9 @@ First deployment creates the `gh-pages` environment and publishes the site.
 ### Viewing Deployment
 
 - **Actions tab** - Monitor workflow progress
+
 - **Environments** - View deployment history
+
 - **Site URL** - `https://username.github.io/repository-name/`
 
 See [GITHUB_ACTIONS.md](GITHUB_ACTIONS.md) for detailed workflow documentation.
@@ -445,16 +489,23 @@ The template automatically sends project metadata to a portfolio repository on e
 ### Setup Requirements
 
 1. **Personal Access Token (PAT)**
+
    - Create at: Settings → Developer settings → Personal access tokens
+
    - Scope: `repo`
+
    - Add as repository secret: `PORTFOLIO_PAT`
 
 2. **Portfolio Repository**
+
    - Add as repository variable: `PORTFOLIO_REPO` (format: `owner/repo`)
+
    - Create workflow in portfolio: `.github/workflows/update-projects.yml`
 
 3. **Metadata Configuration**
+
    - All metadata in `_config.yml` (title, description, author, tags)
+
    - Automatically extracted and sent on deployment
 
 See [PORTFOLIO_INTEGRATION.md](PORTFOLIO_INTEGRATION.md) for complete setup guide.
@@ -468,8 +519,11 @@ When embedded in an iframe, the book synchronizes its theme (light/dark mode) wi
 ### How It Works
 
 - Portfolio controls theme via `postMessage` API
+
 - Book receives message and applies theme
+
 - Origin validation ensures security
+
 - Theme preference stored in localStorage
 
 ### Implementation
@@ -477,8 +531,11 @@ When embedded in an iframe, the book synchronizes its theme (light/dark mode) wi
 The `_static/portfolio-sync.js` script:
 
 - Listens for theme update messages
+
 - Validates sender origin
+
 - Applies theme to document
+
 - Removes theme toggle buttons in iframe context
 
 See [THEME_SYNC.md](THEME_SYNC.md) for technical details.
@@ -492,8 +549,11 @@ The template includes a custom ScrollSpy implementation for iframe contexts wher
 ### Features
 
 - Uses IntersectionObserver API (browser-native)
+
 - Works reliably in iframe embedding
+
 - Responsive design with adaptive thresholds
+
 - Hierarchical navigation support
 
 ### Technical Details
@@ -501,8 +561,11 @@ The template includes a custom ScrollSpy implementation for iframe contexts wher
 Implementation in `_static/portfolio-sync.js`:
 
 - Observes all content sections
+
 - Updates active TOC links based on viewport intersection
+
 - Handles smooth scrolling with observer disabling
+
 - Adapts to viewport size changes
 
 See [SCROLLSPY_EXPLANATION.md](SCROLLSPY_EXPLANATION.md) for implementation details.
@@ -516,16 +579,19 @@ See [SCROLLSPY_EXPLANATION.md](SCROLLSPY_EXPLANATION.md) for implementation deta
 **Error: `_config.yml` not found**
 
 - Ensure running command from project root
+
 - Verify `_config.yml` exists
 
 **Error: File not in `_toc.yml`**
 
 - Add file to `_toc.yml` under `chapters:` or `sections:`
+
 - File must be listed to appear in build
 
 **Error: Invalid YAML syntax**
 
 - Check indentation (use spaces, not tabs)
+
 - Validate YAML at yamllint.com
 
 ### Deployment Issues
@@ -533,13 +599,17 @@ See [SCROLLSPY_EXPLANATION.md](SCROLLSPY_EXPLANATION.md) for implementation deta
 **GitHub Pages not publishing**
 
 - Settings → Pages → Source: "GitHub Actions"
+
 - Check workflow runs in Actions tab
+
 - View job logs for errors
 
 **404 on deployed site**
 
 - Wait 2-3 minutes after first deployment
+
 - Check deployment URL format: `https://username.github.io/repo/`
+
 - Verify `index.html` exists in `_build/html/`
 
 ### Portfolio Integration
@@ -547,13 +617,17 @@ See [SCROLLSPY_EXPLANATION.md](SCROLLSPY_EXPLANATION.md) for implementation deta
 **Metadata not sending**
 
 - Verify `PORTFOLIO_PAT` secret exists
+
 - Verify `PORTFOLIO_REPO` variable exists
+
 - Check workflow logs in Actions tab
 
 **Portfolio workflow not triggering**
 
 - Verify workflow exists: `.github/workflows/update-projects.yml`
+
 - Check event type matches: `types: [project-updated]`
+
 - Confirm Actions enabled in portfolio Settings
 
 See individual documentation files for detailed troubleshooting.

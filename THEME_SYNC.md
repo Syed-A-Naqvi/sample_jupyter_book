@@ -15,9 +15,13 @@ The template includes theme synchronization for iframe embedding, allowing a por
 ## Features
 
 - Portfolio controls book theme dynamically
+
 - Secure communication with origin validation
+
 - Instant updates without page reload
+
 - Persistent state in localStorage
+
 - Graceful standalone mode
 
 ---
@@ -77,8 +81,11 @@ The `postMessage()` method provides secure cross-origin communication between we
 **Characteristics:**
 
 - Cross-origin safe with explicit targeting
+
 - Event-based message reception
+
 - Supports any JavaScript object (JSON-serialized)
+
 - Receiver validates sender's origin
 
 ### Message Structure
@@ -90,7 +97,9 @@ targetWindow.postMessage(message, targetOrigin);
 ```
 
 Parameters:
+
 - `message` (any) - Data to send (structured clone)
+
 - `targetOrigin` (string) - Expected receiver origin
 
 **For theme sync:**
@@ -190,6 +199,7 @@ function applyTheme(theme) {
 **Why both attributes:**
 
 - `data-theme` - Used by sphinx-book-theme
+
 - `data-mode` - Used by pydata-sphinx-theme
 
 Setting both ensures compatibility across theme variants.
@@ -223,7 +233,9 @@ function handleThemeMessage(event) {
 **Security checks:**
 
 1. Message type validation - Only process `"update-theme"` messages
+
 2. Origin validation - Only accept from `TRUSTED_ORIGINS`
+
 3. Theme value validation - Only accept `"light"` or `"dark"`
 
 #### 3. initialize()
@@ -254,18 +266,23 @@ const isIframe = window.self !== window.top;
 ```
 
 - `window.self` - Current window
+
 - `window.top` - Topmost window in frame hierarchy
+
 - Different values indicate iframe embedding
 
 **Iframe context:**
 
 - Attaches message listener
+
 - Removes theme buttons (controlled by parent)
+
 - Initializes custom ScrollSpy
 
 **Standalone context:**
 
 - Preserves normal theme toggle buttons
+
 - Uses Bootstrap's default ScrollSpy
 
 ---
@@ -300,6 +317,7 @@ function handleThemeMessage(event) {
 Update `TRUSTED_ORIGINS` array in `portfolio-sync.js` to include:
 
 - Local development servers (e.g., `http://127.0.0.1:5500`)
+
 - Production portfolio domain (e.g., `https://portfolio.com`)
 
 ### Message Validation
@@ -307,7 +325,9 @@ Update `TRUSTED_ORIGINS` array in `portfolio-sync.js` to include:
 Multiple validation layers:
 
 1. **Type check**: Only process `update-theme` messages
+
 2. **Origin check**: Only accept from trusted origins
+
 3. **Value check**: Only accept valid theme values
 
 **Defense in depth:**
@@ -378,7 +398,9 @@ try {
 ### Local Development
 
 1. **Start portfolio locally** (e.g., Live Server on port 5501)
+
 2. **Build book and serve** (e.g., `sphinx-autobuild` on port 8000)
+
 3. **Embed book in portfolio**:
 
    ```html
@@ -399,16 +421,23 @@ try {
 ### Production Testing
 
 1. **Deploy book to GitHub Pages**
+
 2. **Deploy portfolio with embedded book**
+
 3. **Verify theme synchronization works**
+
 4. **Check browser console for errors**
 
 ### Verification Checklist
 
 - [ ] Theme changes in portfolio update book immediately
+
 - [ ] No console errors or warnings
+
 - [ ] Origin validation rejects untrusted origins
+
 - [ ] Theme persists in book's localStorage
+
 - [ ] Standalone book mode still has theme toggle
 
 ---
@@ -435,7 +464,9 @@ bookIframe.contentWindow.postMessage(/* ... */);
 **Check browser console in book:**
 
 Open book directly and check for:
+
 - Origin validation warnings
+
 - Message reception logs
 
 ### Origin validation failing
@@ -443,7 +474,9 @@ Open book directly and check for:
 **Mismatch between portfolio origin and TRUSTED_ORIGINS:**
 
 - Portfolio runs on `https://example.com`
+
 - TRUSTED_ORIGINS includes `https://www.example.com`
+
 - These are different origins (subdomain matters)
 
 **Solution:** Add exact origin to TRUSTED_ORIGINS:
@@ -472,9 +505,13 @@ document.querySelectorAll('.theme-switch-button, .btn-theme-toggle').forEach(btn
 The theme synchronization system provides:
 
 ✅ **Dynamic control** - Portfolio controls book theme in real-time  
+
 ✅ **Secure** - Origin validation prevents unauthorized access  
+
 ✅ **Persistent** - Theme saved in localStorage  
+
 ✅ **Transparent** - Works seamlessly in iframe context  
+
 ✅ **Standalone compatible** - Book functions independently outside iframe  
 
 The postMessage API enables secure cross-origin communication while maintaining browser security guarantees.

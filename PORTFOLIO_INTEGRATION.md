@@ -33,17 +33,25 @@ The template implements automatic portfolio synchronization using GitHub's Repos
 ### Components
 
 **Book Repository:**
+
 - `_config.yml` - Project metadata source
+
 - `scripts/send-metadata.py` - Metadata extraction and transmission
+
 - `.github/workflows/deploy.yml` - Deployment orchestration
 
 **GitHub API:**
+
 - Endpoint: `POST /repos/{owner}/{repo}/dispatches`
+
 - Authentication: Personal Access Token
+
 - Event type: `project-updated`
 
 **Portfolio Repository:**
+
 - `.github/workflows/update-projects.yml` - Dispatch event listener
+
 - `projects.json` - Project gallery data store
 
 ---
@@ -113,7 +121,9 @@ POST https://api.github.com/repos/{owner}/{repo}/dispatches
 ```
 
 Parameters:
+
 - `{owner}` - Repository owner (username or organization)
+
 - `{repo}` - Repository name
 
 ### Authentication
@@ -130,6 +140,7 @@ Content-Type: application/json
 ```
 
 Required PAT permissions:
+
 - `repo` scope - Full control of repositories
 
 ### Request Payload
@@ -147,7 +158,9 @@ Required PAT permissions:
 ```
 
 Constraints:
+
 - `event_type` - Required, max 100 characters
+
 - `client_payload` - Optional, max 65,535 characters
 
 ### Response Codes
@@ -212,8 +225,11 @@ curl -X POST \
 ### Prerequisites
 
 The portfolio repository must have:
+
 1. GitHub Actions enabled
+
 2. A workflow listening for `repository_dispatch` events
+
 3. A system for storing and rendering project data
 
 ### Required Workflow
@@ -358,27 +374,41 @@ if __name__ == '__main__':
 ### Step 1: Create Personal Access Token
 
 1. Navigate to: Settings → Developer settings → Personal access tokens → Tokens (classic)
+
 2. Click "Generate new token (classic)"
+
 3. Configure:
+
    - **Note**: `Portfolio Integration Token`
+
    - **Expiration**: 90 days or 1 year
+
    - **Scopes**: ✅ `repo`
+
 4. Generate and copy token (format: `ghp_xxxx...`)
 
 ### Step 2: Add Repository Secret
 
 1. Navigate to book repository Settings → Secrets and variables → Actions
+
 2. Click "New repository secret"
+
 3. Add secret:
+
    - **Name**: `PORTFOLIO_PAT`
+
    - **Secret**: Paste Personal Access Token
 
 ### Step 3: Add Repository Variable
 
 1. In Settings → Secrets and variables → Actions, click "Variables" tab
+
 2. Click "New repository variable"
+
 3. Add variable:
+
    - **Name**: `PORTFOLIO_REPO`
+
    - **Value**: `owner/repository-name` (e.g., `jane-smith/portfolio`)
 
 ### Step 4: Verify Workflow
@@ -416,22 +446,33 @@ notify-portfolio:
 ### Common Errors
 
 **"PORTFOLIO_PAT environment variable not set"**
+
 - Verify secret exists in Settings → Secrets and variables → Actions
+
 - Ensure secret name is exactly `PORTFOLIO_PAT`
 
 **"404 Not Found" when sending dispatch**
+
 - Verify `PORTFOLIO_REPO` format is `owner/repo` (no URL, no `.git`)
+
 - Confirm portfolio repository exists
+
 - For private repos, ensure PAT has `repo` scope
 
 **"403 Forbidden" when sending dispatch**
+
 - PAT may be expired or revoked
+
 - Regenerate token and update secret
+
 - For org repos, authorize PAT for organization
 
 **Dispatch sent but workflow doesn't trigger**
+
 - Verify `.github/workflows/update-projects.yml` exists in portfolio
+
 - Confirm event type matches: `types: [project-updated]`
+
 - Check Actions are enabled in portfolio Settings
 
 ---
@@ -439,10 +480,15 @@ notify-portfolio:
 ## Security Best Practices
 
 ### Token Management
+
 - Never commit PATs to repository
+
 - Use repository secrets for storage
+
 - Rotate tokens every 90 days
+
 - Use separate tokens for different integrations
+
 - Monitor token usage in GitHub settings
 
 ### Payload Validation
@@ -471,7 +517,9 @@ def validate_metadata(data):
 The portfolio integration system provides automated project synchronization from book deployment to portfolio gallery update. Key components:
 
 - **Book Repository**: Extracts metadata and sends dispatch
+
 - **GitHub API**: Routes authenticated requests to portfolio
+
 - **Portfolio Repository**: Updates gallery and redeploys
 
 Total sync time: 5-10 minutes from push to live portfolio update.

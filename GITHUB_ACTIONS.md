@@ -33,7 +33,9 @@ The template includes a GitHub Actions workflow that automates deployment from c
 ```
 
 **Dependencies:**
+
 - `deploy` waits for `build`
+
 - `notify-portfolio` waits for `deploy`
 
 ---
@@ -90,13 +92,17 @@ Installs Jupyter Book and script dependencies.
 Executes `update-header.py` which:
 
 1. Reads metadata from `_config.yml` (title, description, author)
+
 2. Generates current date in readable format
+
 3. Identifies README header (lines before first `---`)
+
 4. Replaces header with updated metadata and date
 
 **Example transformation:**
 
 Before:
+
 ```markdown
 # Old Title
 *Author: Old Name*
@@ -105,6 +111,7 @@ Before:
 ```
 
 After:
+
 ```markdown
 # New Title
 *Author: New Name*
@@ -137,9 +144,13 @@ Commits README changes back to repository. The `[skip ci]` tag prevents infinite
 Executes Jupyter Book build:
 
 - Reads `_config.yml` and `_toc.yml`
+
 - Processes Markdown and Notebook files
+
 - Generates static HTML in `_build/html/`
+
 - Copies static assets (CSS, JS, images)
+
 - Creates search index and navigation
 
 #### 7. Setup Pages & Upload Artifact
@@ -168,7 +179,9 @@ Configures GitHub Pages and packages HTML for deployment.
 **Dependencies**: `needs: build`
 
 **Permissions**:
+
 - `pages: write` - Deploy to GitHub Pages
+
 - `id-token: write` - OIDC authentication
 
 **Environment**: `github-pages`
@@ -239,17 +252,23 @@ Prepares environment for metadata script.
 Executes `send-metadata.py` with deployment URL. Script:
 
 1. Loads `_config.yml`
+
 2. Extracts metadata (title, description, author, tags, logo)
+
 3. Constructs full URLs for book and logo
+
 4. Sends POST request to GitHub API:
-   ```text
-   POST /repos/{PORTFOLIO_REPO}/dispatches
-   ```
+
+```text
+POST /repos/{PORTFOLIO_REPO}/dispatches
+```
+
 5. Includes metadata in request payload
 
 **Environment variables:**
 
 - `PORTFOLIO_REPO` - Target repository (format: `owner/repo`)
+
 - `PORTFOLIO_PAT` - Personal Access Token for authentication
 
 **API Request:**
@@ -274,9 +293,13 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 - `204 No Content` - Success, portfolio workflow triggered
+
 - `401 Unauthorized` - Invalid PAT
+
 - `403 Forbidden` - Insufficient permissions
+
 - `404 Not Found` - Repository doesn't exist
 
 ---
@@ -294,7 +317,9 @@ Required secrets in repository Settings → Secrets and variables → Actions:
 **Creating PAT:**
 
 1. Settings → Developer settings → Personal access tokens → Tokens (classic)
+
 2. Generate new token with `repo` scope
+
 3. Copy token and add as repository secret
 
 ### Repository Variables
@@ -312,7 +337,9 @@ Required variables in Settings → Secrets and variables → Actions:
 Enable GitHub Pages:
 
 1. Repository Settings → Pages
+
 2. Source: "GitHub Actions"
+
 3. Save
 
 First successful workflow run will create deployment.
@@ -351,8 +378,11 @@ Time    Action
 ### Viewing Workflow Runs
 
 1. Repository → Actions tab
+
 2. Click workflow run to view details
+
 3. Click job name to view logs
+
 4. Expand steps to see detailed output
 
 ### Common Issues
@@ -360,26 +390,35 @@ Time    Action
 **Build fails: "File not found"**
 
 - Ensure file is listed in `_toc.yml`
+
 - Check file path is correct
+
 - Verify file exists in repository
 
 **Deployment fails: "Pages not enabled"**
 
 - Settings → Pages → Source: "GitHub Actions"
+
 - Wait 2-3 minutes after enabling
+
 - Re-run workflow
 
 **Notify fails: "PORTFOLIO_PAT not set"**
 
 - Verify secret exists in Settings → Secrets and variables → Actions
+
 - Check secret name is exactly `PORTFOLIO_PAT`
+
 - Ensure PAT has `repo` scope
 
 **Notify succeeds but portfolio doesn't update**
 
 - Check portfolio workflow exists: `.github/workflows/update-projects.yml`
+
 - Verify event type matches: `types: [project-updated]`
+
 - Check portfolio Actions tab for triggered workflow
+
 - Review portfolio workflow logs for errors
 
 ---
@@ -433,8 +472,11 @@ on:
 ### Secrets Management
 
 - Never commit secrets to repository
+
 - Rotate PATs regularly (every 90 days recommended)
+
 - Use minimum required scope (`repo` for dispatch)
+
 - Monitor secret usage in GitHub settings
 
 ### Workflow Permissions
@@ -442,7 +484,9 @@ on:
 The workflow uses principle of least privilege:
 
 - Build job: `contents: write` (only for README commit)
+
 - Deploy job: `pages: write`, `id-token: write` (only for deployment)
+
 - Notify job: No special permissions (uses provided secrets)
 
 ### Preventing Infinite Loops
@@ -462,10 +506,15 @@ Without this, the commit would trigger the workflow again, creating an infinite 
 The GitHub Actions workflow provides:
 
 ✅ **Automated deployment** - Push to main triggers full pipeline  
+
 ✅ **Metadata updates** - README header always current  
+
 ✅ **Static site generation** - Professional HTML output  
+
 ✅ **Portfolio integration** - Automatic project synchronization  
+
 ✅ **Fast execution** - 3-4 minutes typical runtime  
+
 ✅ **Reliable** - Proven GitHub infrastructure  
 
 The three-job architecture ensures proper sequencing while maintaining separation of concerns.
