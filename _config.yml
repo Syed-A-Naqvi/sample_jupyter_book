@@ -8,7 +8,7 @@ copyright: "2025"
 
 # Custom Metadata
 project_metadata:
-  tags: ["jupyter book", "documentation", "automation", "github actions", "HTML", "CSS", "python", "javascript"]
+  tags: ["Jupyter Book", "Documentation", "Automation", "GitHub Actions", "HTML", "CSS", "Python", "JavaScript"]
   # tags: ["tag 3", "tag 4"]
 
 # Sphinx exclude patterns

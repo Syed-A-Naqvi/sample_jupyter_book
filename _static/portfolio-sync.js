@@ -21,8 +21,10 @@
     const LOCAL_STORAGE_THEME_KEY = "theme";
     const LOCAL_STORAGE_MODE_KEY = "mode";
     const TRUSTED_ORIGINS = [
+        // for loacl development
         "http://127.0.0.1:5501",
         "http://127.0.0.1:5500",
+        // production
         "https://syed-a-naqvi.github.io"
     ];
     
@@ -132,7 +134,10 @@
         const childToParentMap = new Map();
         const tocLinks = Array.from(tocNav.querySelectorAll('a.nav-link[href^="#"]'));
         const activeLinks = [];
-        let observer = getResponsiveObserver();
+
+        // observer object declaration and state tracking
+        let observer = null;
+        let observerActive = false;
         
         // activate link and all parents
         function setActiveLink(link) {
@@ -158,17 +163,20 @@
         // function for enabling and disabling intersection observer
         function toggleObserver(enable) {
             if (enable) {
-                sectionLinkMap.forEach((link, section) => {
-                    try {
+                try {
+                    // observing each section
+                    sectionLinkMap.forEach((link, section) => {
                         observer.observe(section);
-                    }
-                    catch (e) {
-                        console.warn("Failed to observe section:", section.id, e);
-                    }
-                });
+                    });
+                    observerActive = true;
+                }
+                catch (e) {
+                    console.warn("Failed to observe section:", e);
+                }
             } else {
                 try {
                     observer.disconnect();
+                    observerActive = false;
                 }
                 catch (e) {
                     console.warn("Failed to disconnect observer:", e);
@@ -240,7 +248,10 @@
                 
                 if (targetSection) {
 
-                    toggleObserver(false);
+                    // disable observer during manual scroll
+                    if (observerActive) {
+                        toggleObserver(false);
+                    }
                     targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setActiveLink(link);
 
@@ -250,9 +261,14 @@
 
         // Observe all sections
         ['wheel', 'keydown', 'mousedown', 'touchstart'].forEach(eventType => {
+            // This may be a user-initiated scroll
             window.addEventListener(eventType, (e) => {
-                // This may be a user-initiated scroll
-                toggleObserver(true);
+
+                // no need to rebuild intersection observer if it already exists
+                if (!observerActive){
+                    toggleObserver(true);
+                }
+
             }, { passive: true });
         });
         
@@ -282,6 +298,9 @@
             const link = sectionLinkMap.get(firstSection);
             if (link) setActiveLink(link);
         }
+
+        // creating observer object
+        observer = getResponsiveObserver();
         // Start observing
         toggleObserver(true);
 

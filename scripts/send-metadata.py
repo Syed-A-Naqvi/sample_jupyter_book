@@ -12,6 +12,7 @@ Example:
     python send_metadata.py https://your-deployed-url.com
 """
 
+from typing import Any
 import yaml
 import sys
 import os
@@ -19,7 +20,7 @@ import json
 from datetime import datetime
 from urllib import request, error
 
-def load_config():
+def load_config() -> dict[str, Any]:
     """Load and parse _config.yml file."""
     try:
         with open("_config.yml", "r") as f:
@@ -31,7 +32,8 @@ def load_config():
         print(f"Error parsing _config.yml: {e}")
         sys.exit(1)
 
-def extract_metadata(config, deployed_url):
+
+def extract_metadata(config: dict[str, Any], deployed_url: str) -> dict[str, str]:
     """Extract project metadata from config."""
 
     # Get basic info
@@ -57,7 +59,8 @@ def extract_metadata(config, deployed_url):
         "updated": current_date
     }
 
-def send_repository_dispatch(metadata):
+
+def send_repository_dispatch(metadata: dict[str, str]) -> bool:
     """
     Send repository dispatch event to portfolio repository.
     
@@ -79,16 +82,16 @@ def send_repository_dispatch(metadata):
         return False
     
     # GitHub API endpoint for repository dispatch
-    api_url = f"https://api.github.com/repos/{portfolio_repo}/dispatches"
+    api_url: str = f"https://api.github.com/repos/{portfolio_repo}/dispatches"
     
     # Prepare dispatch payload
-    payload = {
+    payload: dict[str, Any] = {
         "event_type": "project-updated",
         "client_payload": metadata
     }
     
     # Prepare request
-    headers = {
+    headers: dict[str, str] = {
         "Accept": "application/vnd.github+json",
         "Authorization": f"Bearer {portfolio_pat}",
         "X-GitHub-Api-Version": "2022-11-28",
@@ -119,6 +122,7 @@ def send_repository_dispatch(metadata):
     except error.URLError as e:
         print(f"Error connecting to GitHub API: {e.reason}")
         return False
+
 
 def main():
     """Main execution function."""
