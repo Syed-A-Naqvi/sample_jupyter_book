@@ -8,6 +8,13 @@
 
 ---
 
+[![Jupyter Book](https://img.shields.io/badge/Jupyter%20Book-Documentation-4B8BBE.svg)](https://jupyterbook.org/)
+[![Automation](https://img.shields.io/badge/Automation-GitHub%20Actions-2088FF.svg)](https://github.com/features/actions)
+[![HTML](https://img.shields.io/badge/HTML-5-E34F26.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS](https://img.shields.io/badge/CSS-3-1572B6.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![Python](https://img.shields.io/badge/Python-3.8+-3776AB.svg)](https://python.org)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
 ## Overview
 
 A production-ready template for creating professional data science project documentation using Jupyter Book with automation and portfolio integration capabilities.
